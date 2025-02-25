@@ -1,0 +1,36 @@
+name: FibBot Action
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  fibbot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: '1.64'
+
+      - name: Run FibBot
+        run: cargo run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post comment to a PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { context } = require('@actions/github');
+            const issueComment = context.issue;
+            const comment = {
+              ...issueComment,
+              body: 'Hello world has been executed successfully'
+            };
+            await github.issues.createComment(comment);
