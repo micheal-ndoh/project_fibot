@@ -12,6 +12,7 @@
 - A Rust program that prints "Hello, world!" when executed.
   - A GitHub workflow that triggers the action and confirms the "Hello, world!" output appears in the action logs.
   - A minimal working GitHub Action written in Rust that is successfully running on GitHub.
+  - and hell
     
 ### Step 2: Workflows
 
