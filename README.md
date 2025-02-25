@@ -22,7 +22,7 @@
 ### Step 3: Fibonacci function
 - A function that parses a sample string (from the pull request content) and extracts numerical values
 - A fibonacci function in rust with tests covering edge cases and efficiency 
-- Should have core logic of both number extraction and fibonacci calculation withh test cases that confirms their functionalities
+- Should have core logic of both number extraction and fibonacci calculation withh test cases that confirms their functionalities with je
 
 ### Step 4: Github API
 - Integrated functionality that extracts numbers and computes their Fibonacci values.
