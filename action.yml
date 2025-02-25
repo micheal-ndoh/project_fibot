@@ -7,11 +7,10 @@ inputs:
     required: true
     default: 'false'
   max_threshold:
-    description: 'Maximum value for Fibonacci calcutation '
+    description: 'Maximum value for Fibonacci calculation'
     required: false
     default: '100'
 
 runs:
   using: 'docker'
-  image: 'docker://rust:1.58'
-  mainEntry: 'cargo run'
+  image: 'Dockerfile'
