@@ -1,4 +1,4 @@
-name: "Run FibBot Action"
+name: "Run the FibBot Action"
 on: [push]
 
 jobs:
