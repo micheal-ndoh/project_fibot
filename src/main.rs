@@ -1,12 +1,16 @@
-use reqwest::Error;
+use anyhow::Result;
 use std::env;
 
 mod extract;
 mod fibonacci;
 mod comment;
 
-#[tokio::main]
-async fn main() -> Result<(), Error> {
+fn main() -> Result<()> {
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.block_on(async_main())
+}
+
+async fn async_main() -> Result<()> {
     println!("Hello, world!");
 
     let owner = "micheal-ndoh";
