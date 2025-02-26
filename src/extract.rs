@@ -8,6 +8,8 @@ struct PullRequest {
 }
 
 pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result<String, Error> {
+    let owner = "micheal-ndoh";
+    let repo = "project_fibot";
     let token = env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN not set");
     let client = Client::new();
     let url = format!(
