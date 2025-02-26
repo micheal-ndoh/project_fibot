@@ -1,4 +1,5 @@
-use reqwest::{Client, Error};
+use anyhow::Result;
+use reqwest::Client;
 use serde::Deserialize;
 use std::env;
 
@@ -7,7 +8,7 @@ struct PullRequest {
     body: String,
 }
 
-pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result<String, Error> {
+pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result<String> {
     let token = env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN not set");
     let client = Client::new();
     let url = format!(
