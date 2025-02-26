@@ -17,6 +17,7 @@ pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result
     );
     let response = client
         .get(&url)
+        .header("User-Agent", "FibBot")
         .bearer_auth(token)
         .send()
         .await?;
