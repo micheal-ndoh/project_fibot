@@ -5,7 +5,7 @@ use std::env;
 
 #[derive(Deserialize)]
 struct PullRequest {
-    body: String,
+    body: Option<String>,
 }
 
 pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result<String> {
@@ -26,7 +26,7 @@ pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result
     println!("Response text: {}", response_text);
 
     let pull_request: PullRequest = serde_json::from_str(&response_text)?;
-    Ok(pull_request.body)
+    Ok(pull_request.body.unwrap_or_default())
 }
 
 pub fn extract_numbers_from_pr(content: &str) -> Vec<u32> {
