@@ -18,10 +18,13 @@ pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result
         .get(&url)
         .bearer_auth(token)
         .send()
-        .await?
-        .json::<PullRequest>()
         .await?;
-    Ok(response.body)
+
+    let response_text = response.text().await?;
+    println!("Response text: {}", response_text);
+
+    let pull_request: PullRequest = serde_json::from_str(&response_text)?;
+    Ok(pull_request.body)
 }
 
 pub fn extract_numbers_from_pr(content: &str) -> Vec<u32> {
