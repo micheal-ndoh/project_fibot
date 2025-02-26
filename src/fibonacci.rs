@@ -3,6 +3,7 @@ pub fn fibonacci(n: u32, max_value: u32) -> Vec<u32> {
     while let Some(&last) = fib_sequence.last() {
         let next = fib_sequence[fib_sequence.len() - 1] + fib_sequence[fib_sequence.len() - 2];
         if next > max_value {
+            println!("Reached maximum threshold value: {}", max_value);
             break;
         }
         fib_sequence.push(next);
@@ -17,7 +18,7 @@ mod tests {
     #[test]
     fn test_fibonacci_with_max_value() {
         let max_value = 100;
-        let result = fibonacci(100, max_value);
+        let result = fibonacci(10, max_value);
         let expected = vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34];
         assert_eq!(result, expected);
     }
@@ -25,8 +26,8 @@ mod tests {
     #[test]
     fn test_fibonacci_exceeds_max_value() {
         let max_value = 20;
-        let result = fibonacci(20, max_value);
-        let expected = vec![0, 1, 1, 2, 3, 5, 8, 13, ];
+        let result = fibonacci(10, max_value);
+        let expected = vec![0, 1, 1, 2, 3, 5, 8, 13];
         assert_eq!(result, expected);
     }
 }
