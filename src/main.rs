@@ -1,31 +1,35 @@
+// main.rs
 use anyhow::Result;
-use std::env;
+use extract::{extract_numbers_from_pr, fetch_pr_content};
+use fibonacci::fibonacci;
+use comment::post_comment;
 
-mod extract;
 mod fibonacci;
 mod comment;
+mod extract;
 
-fn main() -> Result<()> {
-    let rt = tokio::runtime::Runtime::new().unwrap();
-    rt.block_on(async_main())
-}
 
-async fn async_main() -> Result<()> {
-    println!("Hello, world!");
+const MAX_FIBONACCI_THRESHOLD: u32 = 100;
 
+#[tokio::main]
+async fn main() -> Result<()> {
+   
     let owner = "micheal-ndoh";
     let repo = "project_fibot";
-    let pr_number = 1; 
-    let enable_fib = env::var("INPUT_ENABLE_FIB").unwrap_or_else(|_| "false".to_string()) == "true";
-    let max_threshold: u32 = env::var("INPUT_MAX_THRESHOLD").unwrap_or_else(|_| "100".to_string()).parse().unwrap_or(100);
+    let pr_number = 1;
+    let content = fetch_pr_content(owner, repo, pr_number).await?;
 
-    let pr_content = extract::fetch_pr_content(owner, repo, pr_number).await?;
-    let numbers = extract::extract_numbers_from_pr(&pr_content);
+    let numbers = extract_numbers_from_pr(&content);
 
-    if enable_fib {
-        let fib_numbers: Vec<u32> = numbers.iter().flat_map(|&n| fibonacci::fibonacci(n, max_threshold)).collect();
-        let message = format!("Fibonacci numbers: {:?}", fib_numbers);
-        comment::post_comment(owner, repo, pr_number, message).await?;
+    let results: Vec<(u32, Vec<u32>)> = numbers
+        .into_iter()
+        .map(|num| (num, fibonacci(num, MAX_FIBONACCI_THRESHOLD)))
+        .collect();
+
+    for (num, fib) in results {
+       
+        let comment = format!("The Fibonacci sequence for {} is {:?}", num, fib);
+        post_comment(owner, repo, pr_number, comment).await?;
     }
 
     Ok(())

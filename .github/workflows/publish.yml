@@ -1,18 +1,33 @@
-name: "Run FibBot Action"
-on: [push]
+name: Fibbot
+
+on:
+  pull_request:
+    types: [opened, edited]
 
 jobs:
-  test-action:
+  run-fibbot:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      - name: Run FibBot
-        id: inputs
-        uses: ./
+      - name: Debug Environment Variables
+        run: |
+          echo "PR_NUMBER: ${{ github.event.pull_request.number }}"
+          echo "ENABLE_FIBONACCI: ${{ inputs.enable_fib }}"
+          echo "THRESHOLD: ${{ inputs.threshold }}"
+          echo "GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}"
+          echo "GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}"
+
+      - name: Run Fibonacci Action
+        uses: ./  # Ensure this points to the correct directory where your action is defined
         with:
-          enable_fib: false
-          max_threshold: '100'
+          enable_fib: 'true'  
+          threshold: '10'      
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          ENABLE_FIBONACCI: ${{ inputs.enable_fib }}
+          THRESHOLD: ${{ inputs.threshold }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
