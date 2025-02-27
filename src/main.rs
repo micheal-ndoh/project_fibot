@@ -28,7 +28,7 @@ async fn async_main() -> Result<()> {
         let message = format!("Fibonacci numbers: {:?}", fib_numbers);
         comment::post_comment(owner, repo, pr_number, message).await?;
         for numbers in fib_numbers{
-
+            println!("Extracted numbers: {:?}", numbers);
             println!("The fibonacci of {} is: {:?}", numbers,fibonacci(numbers, max_threshold));
          }
     }
