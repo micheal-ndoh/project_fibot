@@ -27,10 +27,12 @@ async fn async_main() -> Result<()> {
         let fib_numbers: Vec<u32> = numbers.iter().flat_map(|&n| fibonacci::fibonacci(n, max_threshold)).collect();
         let message = format!("Fibonacci numbers: {:?}", fib_numbers);
         comment::post_comment(owner, repo, pr_number, message).await?;
-        for numbers in fib_numbers{
-            println!("Extracted numbers: {:?}", numbers);
-            println!("The fibonacci of {} is: {:?}", numbers,fibonacci(numbers, max_threshold));
-         }
+        
+        for &number in &numbers {
+            println!("Extracted number: {}", number);
+            let fib_result = fibonacci(number, max_threshold);
+            println!("The Fibonacci of {} is: {:?}", number, fib_result);
+        }
     }
 
     Ok(())
