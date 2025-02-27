@@ -5,7 +5,7 @@ inputs:
   enable_fib:
     description: 'Enable Fibonacci calculation'
     required: true
-    default: 'false'
+    default: 'true'
   max_threshold:
     description: 'Maximum value for Fibonacci calculation'
     required: false
