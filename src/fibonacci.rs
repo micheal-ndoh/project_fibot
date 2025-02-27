@@ -1,14 +1,22 @@
-pub fn fibonacci(n: u32, max_value: u32) -> Vec<u32> {
+pub fn fibonacci(n: u32, max_value: u32) -> u32 {
+    if n == 0 {
+        return 0;
+    }
+
+    if n == 1 {
+        return 1;
+    }
+
     let mut fib_sequence = vec![0, 1];
     while let Some(&_last) = fib_sequence.last() {
         let next = fib_sequence[fib_sequence.len() - 1] + fib_sequence[fib_sequence.len() - 2];
         if next > max_value {
-            println!("Reached maximum threshold value: {}", max_value);
             break;
         }
         fib_sequence.push(next);
     }
-    fib_sequence.into_iter().take(n as usize).collect()
+    
+    *fib_sequence.get(n as usize).unwrap_or(&0) 
 }
 
 #[cfg(test)]
@@ -16,18 +24,21 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_fibonacci_with_max_value() {
-        let max_value = 100;
-        let result = fibonacci(10, max_value);
-        let expected = vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34];
-        assert_eq!(result, expected);
+    fn test_fibonacci_small_numbers() {
+        assert_eq!(fibonacci(0, 100), 0);
+        assert_eq!(fibonacci(1, 100), 1);
+        assert_eq!(fibonacci(2, 100), 1);
+        assert_eq!(fibonacci(3, 100), 2);
     }
 
     #[test]
-    fn test_fibonacci_exceeds_max_value() {
-        let max_value = 20;
-        let result = fibonacci(10, max_value);
-        let expected = vec![0, 1, 1, 2, 3, 5, 8, 13];
-        assert_eq!(result, expected);
+    fn test_fibonacci_large_numbers() {
+        assert_eq!(fibonacci(10, 1000), 55);
+        assert_eq!(fibonacci(20, 1000), 6765);
+    }
+
+    #[test]
+    fn test_fibonacci_max_threshold() {
+        assert_eq!(fibonacci(100, 100), 89); 
     }
 }
