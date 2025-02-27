@@ -1,5 +1,13 @@
 name: "Run FibBot Action"
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  
+    types: [opened, edited, synchronize]
+    branches:
+      - main
 
 jobs:
   test-action:
@@ -16,3 +24,9 @@ jobs:
           max_threshold: '100'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Debug Logs
+        if: ${{ always() }}
+        run: |
+          echo "Job status: ${{ job.status }}"
+          echo "Steps outputs: ${{ toJson(steps) }}"
