@@ -11,7 +11,17 @@ mod comment;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
-    // Fetch GitHub context dynamically
+
+
+    pub fn extract_numbers_from_pr(content: &str) -> Vec<u32> {
+        content
+            .replace("-", " ")
+            .split_whitespace()
+            .map(|word| word.chars().filter(|c| !c.is_ascii_punctuation()).collect::<String>())
+            .filter_map(|word| word.parse::<u32>().ok())
+            .collect()
+    }
+
     let owner = env::var("GITHUB_REPOSITORY")
         .context("GITHUB_REPOSITORY environment variable is not set")?;
     let parts: Vec<&str> = owner.split('/').collect();
@@ -34,7 +44,7 @@ async fn main() -> Result<(), anyhow::Error> {
         .parse()
         .unwrap_or(100);
 
-    // Fetch PR content and handle potential error with Result
+   
     let pr_content = extract::fetch_pr_content(owner, repo, pr_number)
         .await
         .context("Failed to fetch PR content")?;
@@ -46,7 +56,7 @@ async fn main() -> Result<(), anyhow::Error> {
 
         let message = format!("Fibonacci of the number: {}", fib_number);
         
-        // Post comment and handle potential error with Result
+        
         comment::post_comment(owner, repo, pr_number, message)
             .await
             .context("Failed to post comment")?;
@@ -55,4 +65,6 @@ async fn main() -> Result<(), anyhow::Error> {
     }
 
     Ok(())
+
+    
 }
