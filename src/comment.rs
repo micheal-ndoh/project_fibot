@@ -13,7 +13,7 @@ pub async fn post_comment(owner: &str, repo: &str, pr_number: u32, message: Stri
     let comment = Comment { body: message };
     client
         .post(&format!(
-            "https://api.github.com/repos/{}/{}/issues/{}/comments",
+            "https://api.github.com/repos/{}/{}/pulls/{}/comments",
             owner, repo, pr_number
         ))
         .bearer_auth(token)
