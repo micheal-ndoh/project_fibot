@@ -1,5 +1,6 @@
 use anyhow::Result;
 use std::env;
+use fibonacci::fibonacci;
 
 mod extract;
 mod fibonacci;
@@ -26,6 +27,10 @@ async fn async_main() -> Result<()> {
         let fib_numbers: Vec<u32> = numbers.iter().flat_map(|&n| fibonacci::fibonacci(n, max_threshold)).collect();
         let message = format!("Fibonacci numbers: {:?}", fib_numbers);
         comment::post_comment(owner, repo, pr_number, message).await?;
+        for numbers in fib_numbers{
+
+            println!("The fibonacci of {} is: {:?}", numbers,fibonacci(numbers, max_threshold));
+         }
     }
 
     Ok(())
