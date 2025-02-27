@@ -9,7 +9,7 @@ inputs:
   max_threshold:
     description: 'Maximum value for Fibonacci calculation'
     required: false
-    default: '100'
+    default: '100o'
 
 runs:
   using: 'docker'
