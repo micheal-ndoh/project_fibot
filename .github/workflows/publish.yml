@@ -12,7 +12,7 @@ jobs:
         id: inputs
         uses: ./
         with:
-          enable_fib: false
+          enable_fib: true
           max_threshold: '100'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
