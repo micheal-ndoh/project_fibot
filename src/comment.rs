@@ -12,7 +12,7 @@ pub async fn post_comment(owner: &str, repo: &str, pr_number: u32, message: Stri
     let client = Client::new();
     let comment = Comment { body: message };
 
-    // Log the URL and attempt to send the comment
+    
     let url = format!(
         "https://api.github.com/repos/{}/{}/pulls/{}/comments",
         owner, repo, pr_number
