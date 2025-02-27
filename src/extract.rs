@@ -21,7 +21,6 @@ pub async fn fetch_pr_content(owner: &str, repo: &str, pr_number: u32) -> Result
         .bearer_auth(token)
         .send()
         .await?;
-
     let response_text = response.text().await?;
     println!("Response text: {}", response_text);
 
