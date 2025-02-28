@@ -20,7 +20,7 @@ jobs:
         uses: ./
         with:
           enable_fib: true
-          max_threshold: '10000' # Updated to 10000
+          max_threshold: '10000' 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
