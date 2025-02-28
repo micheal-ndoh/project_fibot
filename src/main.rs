@@ -45,7 +45,6 @@ async fn main() -> Result<(), anyhow::Error> {
         .parse()
         .unwrap_or(10000);
 
-    
     let pr_content = octocrab
         .pulls(owner, repo)
         .get(pr_number.into())
@@ -58,15 +57,23 @@ async fn main() -> Result<(), anyhow::Error> {
     println!("Extracted numbers: {:?}", numbers);
 
     if enable_fib {
-        let fib_number = numbers.get(0).map_or(0, |&n| fibonacci(n, max_threshold));
-        let message = format!("Fibonacci of the number: {}", fib_number);
+        let fib_results: Vec<u32> = numbers
+            .iter()
+            .map(|&n| fibonacci(n, max_threshold))
+            .collect();
+
+        let message = format!(
+            "Extracted numbers: {:?}\nFibonacci calculation results: {:?}",
+            numbers, fib_results
+        );
 
         comment::post_comment(owner, repo, pr_number, message)
             .await
             .context("Failed to post comment")?;
 
-        println!("Fibonacci calculation result: {}", fib_number);
+        println!("Fibonacci calculation results: {:?}", fib_results);
     }
 
     Ok(())
 }
+
