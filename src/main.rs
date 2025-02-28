@@ -10,6 +10,8 @@ mod comment;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
+
+    println!("Hello, world!");
     
     let owner = env::var("GITHUB_REPOSITORY")
         .context("GITHUB_REPOSITORY environment variable is not set")?;
