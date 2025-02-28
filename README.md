@@ -1,7 +1,6 @@
 [![Run FibBot Action](https://github.com/micheal-ndoh/project_fibot/actions/workflows/publish.yml/badge.svg)](https://github.com/micheal-ndoh/project_fibot/actions/workflows/publish.yml)
 
 # `PROJECT FIBOT`
-Test
 **Description**
 
  A GitHub Action in Rust that scans pull request content for numbers, calculates their Fibonacci numbers, and posts a comment with the results. The action supports two parameters (e.g., a flag to enable Fibonacci calculation and a threshold limit).
