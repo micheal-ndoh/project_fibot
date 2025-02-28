@@ -1,6 +1,5 @@
 name: Project FibBot
 description: A GitHub Action to calculate Fibonacci numbers from the pull request content.
-
 inputs:
   enable_fib:
     description: 'Enable Fibonacci calculation'
@@ -10,7 +9,10 @@ inputs:
     description: 'Maximum value for Fibonacci calculation'
     required: false
     default: '10000' 
-
 runs:
   using: 'docker'
   image: 'Dockerfile'
+
+
+
+
