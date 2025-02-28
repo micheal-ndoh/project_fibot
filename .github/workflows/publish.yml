@@ -8,6 +8,9 @@ on:
     types: [opened, edited, synchronize]
     branches:
       - main
+permissions:
+  pull-requests: write
+  issues: write
 
 jobs:
   test-action:
