@@ -35,7 +35,7 @@ pub fn extract_numbers_from_pr(content: &str) -> Vec<u32> {
     content
         .replace("-", " ")
         .split_whitespace()
-        .map(|word| word.chars().filter(|c| !c.is_ascii_punctuation()).collect::<String>())
+        .map(|word| word.chars().filter(|c| c.is_numeric()).collect::<String>())
         .filter_map(|word| word.parse::<u32>().ok())
         .collect()
 }
