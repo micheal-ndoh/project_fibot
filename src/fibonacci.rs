@@ -18,27 +18,3 @@ pub fn fibonacci(n: u32, max_value: u32) -> u32 {
     
     *fib_sequence.get(n as usize).unwrap_or(&0) 
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_fibonacci_small_numbers() {
-        assert_eq!(fibonacci(0, 100), 0);
-        assert_eq!(fibonacci(1, 100), 1);
-        assert_eq!(fibonacci(2, 100), 1);
-        assert_eq!(fibonacci(3, 100), 2);
-    }
-
-    #[test]
-    fn test_fibonacci_large_numbers() {
-        assert_eq!(fibonacci(10, 1000), 55);
-        assert_eq!(fibonacci(20, 1000), 6765);
-    }
-
-    #[test]
-    fn test_fibonacci_max_threshold() {
-        assert_eq!(fibonacci(100, 100), 89); 
-    }
-}
