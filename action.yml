@@ -1,4 +1,4 @@
-name: FibBot
+name: Project FibBot
 description: A GitHub Action to calculate Fibonacci numbers from the pull request content.
 
 inputs:
@@ -9,7 +9,7 @@ inputs:
   max_threshold:
     description: 'Maximum value for Fibonacci calculation'
     required: false
-    default: '1000'
+    default: '10000' 
 
 runs:
   using: 'docker'
