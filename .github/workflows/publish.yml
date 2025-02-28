@@ -10,7 +10,7 @@ on:
       - main
 permissions:
   pull-requests: write
-  issues: write
+
 
 jobs:
   test-action:
