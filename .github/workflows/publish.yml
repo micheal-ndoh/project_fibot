@@ -1,4 +1,5 @@
 name: "Run FibBot Action"
+
 on:
   push:
     branches:
@@ -12,15 +13,31 @@ jobs:
   test-action:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Debug Event Context
+        run: echo "${{ toJson(github.event) }}"
+
+      
+      - name: Get PR Number
+        id: pr-number
+        run: |
+          if [ -z "${{ github.event.pull_request.number }}" ]; then
+            echo "::warning::No PR number found. Running on push event."
+            echo "pr_number=0" >> $GITHUB_OUTPUT
+          else
+            echo "PR Number: ${{ github.event.pull_request.number }}"
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Run FibBot
         id: inputs
         uses: ./
         with:
           enable_fib: true
-          max_threshold: '10000' 
+          max_threshold: '10000'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -29,3 +46,4 @@ jobs:
         run: |
           echo "Job status: ${{ job.status }}"
           echo "Steps outputs: ${{ toJson(steps) }}"
+          echo "PR Number: ${{ steps.pr-number.outputs.pr_number }}"
