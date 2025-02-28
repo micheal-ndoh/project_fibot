@@ -8,31 +8,30 @@ on:
     types: [opened, edited, synchronize]
     branches:
       - main
-permissions:
-  pull-requests: write
 
+permissions:
+  contents: write  
+  pull-requests: write
 
 jobs:
   test-action:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Debug Event Context
         run: echo "${{ toJson(github.event) }}"
 
-      
       - name: Get PR Number
         id: pr-number
         run: |
-          if [ -z "${{ github.event.pull_request.number }}" ]; then
-            echo "::warning::No PR number found. Running on push event."
-            echo "pr_number=0" >> $GITHUB_OUTPUT
-          else
+          if [ -n "${{ github.event.pull_request.number }}" ]; then
             echo "PR Number: ${{ github.event.pull_request.number }}"
-            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          else
+            echo "::error::No PR number found. Running on push event."
+            exit 1
           fi
 
       - name: Run FibBot
@@ -43,10 +42,10 @@ jobs:
           max_threshold: '1000000'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ env.pr_number }}
 
       - name: Debug Logs
         if: ${{ always() }}
         run: |
           echo "Job status: ${{ job.status }}"
-          echo "Steps outputs: ${{ toJson(steps) }}"
-          echo "PR Number: ${{ steps.pr-number.outputs.pr_number }}"
+          echo "PR Number: ${{ env.pr_number }}"
