@@ -26,12 +26,14 @@ jobs:
       - name: Determine PR Number (if applicable)
         id: pr-number
         run: |
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "PR Number: ${{ github.event.pull_request.number }}"
             echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           else
             echo "Skipping PR-related steps."
             echo "pr_number=0" >> $GITHUB_ENV
+        shell: bash
+      
 
       - name: Run FibBot
         id: fibbot
