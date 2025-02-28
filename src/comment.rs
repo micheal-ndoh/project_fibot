@@ -12,15 +12,15 @@ pub async fn post_comment(owner: &str, repo: &str, pr_number: u32, message: Stri
     let client = Client::new();
     let comment = Comment { body: message };
 
-    
     let url = format!(
-        "https://api.github.com/repos/{}/{}/pulls/{}/comments",
+        "https://api.github.com/repos/{}/{}/issues/{}/comments",
         owner, repo, pr_number
     );
     println!("Attempting to post comment to: {}", url);
 
-    client
+    let response = client
         .post(&url)
+        .header("User-Agent", "FibBot")
         .bearer_auth(token)
         .json(&comment)
         .send()
@@ -30,6 +30,12 @@ pub async fn post_comment(owner: &str, repo: &str, pr_number: u32, message: Stri
             err
         })?;
 
-    println!("Successfully posted comment to PR #{}", pr_number);
+    if response.status().is_success() {
+        println!("Successfully posted comment to PR #{}", pr_number);
+    } else {
+        let error_body = response.text().await.unwrap_or_else(|_| "Failed to read error body".to_string());
+        eprintln!("Failed to post comment. Response: {}", error_body);
+    }
+
     Ok(())
 }
