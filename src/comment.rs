@@ -21,6 +21,7 @@ pub async fn post_comment(owner: &str, repo: &str, pr_number: u32, message: Stri
     let response = client
         .post(&url)
         .header("User-Agent", "FibBot")
+        .header("Accept", "application/vnd.github.v3+json")
         .bearer_auth(token)
         .json(&comment)
         .send()
