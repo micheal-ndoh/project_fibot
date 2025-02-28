@@ -41,9 +41,9 @@ async fn main() -> Result<(), anyhow::Error> {
     let enable_fib = env::var("INPUT_ENABLE_FIB")
         .unwrap_or_else(|_| "true".to_string()) == "true";
     let max_threshold: u32 = env::var("INPUT_MAX_THRESHOLD")
-        .unwrap_or_else(|_| "10000".to_string())
+        .unwrap_or_else(|_| "1000000".to_string())
         .parse()
-        .unwrap_or(10000);
+        .unwrap_or(1000000);
 
     let pr_content = octocrab
         .pulls(owner, repo)
