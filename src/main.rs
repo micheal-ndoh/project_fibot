@@ -38,8 +38,6 @@ async fn main() -> Result<(), anyhow::Error> {
     let octocrab = Octocrab::builder()
         .personal_token(env::var("GITHUB_TOKEN").context("GITHUB_TOKEN environment variable is not set")?)
         .build()?;
-
-    // Configure Fibonacci calculation settings
     let enable_fib = env::var("INPUT_ENABLE_FIB")
         .unwrap_or_else(|_| "true".to_string()) == "true";
     let max_threshold: u32 = env::var("INPUT_MAX_THRESHOLD")
