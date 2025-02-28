@@ -3,7 +3,6 @@ use fibonacci::fibonacci;
 use comment::post_comment;
 use extract::extract_numbers_from_pr;
 use anyhow::{Result, Context};
-use tokio::runtime::Runtime;
 
 mod extract;
 mod fibonacci;
@@ -11,17 +10,6 @@ mod comment;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
-
-
-    pub fn extract_numbers_from_pr(content: &str) -> Vec<u32> {
-        content
-            .replace("-", " ")
-            .split_whitespace()
-            .map(|word| word.chars().filter(|c| !c.is_ascii_punctuation()).collect::<String>())
-            .filter_map(|word| word.parse::<u32>().ok())
-            .collect()
-    }
-
     let owner = env::var("GITHUB_REPOSITORY")
         .context("GITHUB_REPOSITORY environment variable is not set")?;
     let parts: Vec<&str> = owner.split('/').collect();
@@ -31,20 +19,19 @@ async fn main() -> Result<(), anyhow::Error> {
     let pr_number: u32 = env::var("GITHUB_REF")
         .context("GITHUB_REF environment variable is not set")?
         .split('/')
-        .last()
+        .nth(2) // PR number is the third part of the ref (e.g., refs/pull/123/merge)
         .and_then(|s| s.parse().ok())
-        .unwrap_or_default();
+        .context("Failed to parse PR number")?;
 
     println!("GitHub PR details: owner={}, repo={}, PR#={}", owner, repo, pr_number);
 
     let enable_fib = env::var("INPUT_ENABLE_FIB")
         .unwrap_or_else(|_| "true".to_string()) == "true";
     let max_threshold: u32 = env::var("INPUT_MAX_THRESHOLD")
-        .unwrap_or_else(|_| "100".to_string())
+        .unwrap_or_else(|_| "10000".to_string()) // Updated to 10000
         .parse()
-        .unwrap_or(100);
+        .unwrap_or(10000);
 
-   
     let pr_content = extract::fetch_pr_content(owner, repo, pr_number)
         .await
         .context("Failed to fetch PR content")?;
@@ -53,10 +40,8 @@ async fn main() -> Result<(), anyhow::Error> {
 
     if enable_fib {
         let fib_number = numbers.get(0).map_or(0, |&n| fibonacci(n, max_threshold));
-
         let message = format!("Fibonacci of the number: {}", fib_number);
-        
-        
+
         comment::post_comment(owner, repo, pr_number, message)
             .await
             .context("Failed to post comment")?;
@@ -65,6 +50,4 @@ async fn main() -> Result<(), anyhow::Error> {
     }
 
     Ok(())
-
-    
 }
