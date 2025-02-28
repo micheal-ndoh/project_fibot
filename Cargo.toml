@@ -9,4 +9,4 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 tokio = { version = "1", features = ["full"] }
 anyhow = "1.0"
-thiserror = "2.0" # For better error handling
+thiserror = "2.0" 
