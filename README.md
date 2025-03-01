@@ -47,10 +47,10 @@ An action in GitHub written in Rust that scans the text of the pull request for 
 ## Usage
 
 ### The workflow runs on pull request so you will have to do the follow steps
-1. Forked the repository and create a new branch then make some changes by adding numbers or a sentence containing numbers which will be extracted and the fibonacci frequency will be display on the comment section of the pull request
+1. Forked the repository and create a new branch then make some changes by adding numbers or a sentence containing numbers which will be extracted and the fibonacci frequency will be display on the comment section of the pull request and create a pull request.
 
-2. Inputs
-   To use this action you should forked the repository and edit the fibonacci `.github/workflows/fibbot.yml` and the two parameters the `enable_fib` which enables the fibonacci calculation and the `max_threshold` which is the maximum number the fibonacci action can/should perform.
+2. **Inputs**:
+   To set parameters edit the fibonacci `.github/workflows/fibbot.yml` and the two parameters the `enable_fib` which enables the fibonacci calculation and the `max_threshold` which is the maximum number the fibonacci action can/should perform.
 
 | Input Name      | Description                                       | Default Value |
 |---------------|----------------------------------------------------|-----------|
