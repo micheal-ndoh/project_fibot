@@ -10,7 +10,7 @@
 
 ### Step 1: Printing and confirming from logs
 
-- A Rust program that prints "Hello, world!" when executed.
+- A Rust program that prints "Hello, world!" when executv46 31 ed.
   - A GitHub workflow that run the "Hello, world!" program and output in the action logs.
   - A minimal working GitHub Action written in Rust that is successfully running on GitHub.
 
