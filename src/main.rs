@@ -54,6 +54,7 @@ async fn main() -> Result<(), anyhow::Error> {
             .await
             .context("Failed to post comment")?;
         println!("Fibonacci calculation results: {:?}", fib_results);
+
     }
 
     Ok(())

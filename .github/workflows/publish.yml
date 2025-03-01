@@ -6,9 +6,8 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write  
-  pull-requests: write  
+permissions: write-all
+   
 
 jobs:
   test-action:
