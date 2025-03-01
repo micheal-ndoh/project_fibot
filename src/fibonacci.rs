@@ -12,7 +12,7 @@ pub fn fibonacci(n: u32, max_value: u32) -> u32 {
         let next = fib_sequence[fib_sequence.len() - 1] + fib_sequence[fib_sequence.len() - 2];
         if n > max_value {
             
-            break;
+            continue;
         }
         fib_sequence.push(next);
     }
