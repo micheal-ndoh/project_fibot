@@ -1,4 +1,3 @@
-[![Run FibBot Action](https://github.com/micheal-ndoh/project_fibot/actions/workflows/publish.yml/badge.svg)](https://github.com/micheal-ndoh/project_fibot/actions/workflows/publish.yml)
 
 # `PROJECT FIBOT`
 **Description**
