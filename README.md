@@ -46,22 +46,23 @@ An action in GitHub written in Rust that scans the text of the pull request for 
 
 ## Usage
 
-1. The workflow runs on pull request so you will have to forked the repository and create a new branch then make some changes by adding numbers or a sentence containing numbers which will be extracted and the fibonacci frequency will be display on the comment section of the pull request
+### The workflow runs on pull request so you will have to do the follow steps
+1. Forked the repository and create a new branch then make some changes by adding numbers or a sentence containing numbers which will be extracted and the fibonacci frequency will be display on the comment section of the pull request
 
 2. Inputs
    To use this action you should forked the repository and edit the fibonacci `.github/workflows/fibbot.yml` and the two parameters the `enable_fib` which enables the fibonacci calculation and the `max_threshold` which is the maximum number the fibonacci action can/should perform.
 
 | Input Name      | Description                                       | Default Value |
 |---------------|----------------------------------------------------|-----------|
-| `enable_fib`  | Enables Fibonacci calculation (`true` or `false`). | `true`    |
-| `max_threshold` | Maximum Fibonacci number that can be computed.    | `100`   |
+| `enable_fib`  | Enables Fibonacci calculation (`true` or `false`) | `true`    |
+| `max_threshold` | Maximum Fibonacci number that can be computed    | `100`   |
 
 ### 3. How It Works
 
-1. The action scans the PR for added or modified file content.
-2. It extracts all numerical values from the PR content.
-3. It computes the Fibonacci value for each number up to the `max_threshold`.
-4. It posts a comment on the PR with the extracted numbers and their Fibonacci values.
+* The action scans the PR for added or modified file content.
+* It extracts all numerical values from the PR content.
+* It computes the Fibonacci value for each number up to the `max_threshold`.
+* It posts a comment on the PR with the extracted numbers and their Fibonacci values.
 
 ### 4. Example Comment Output
 
