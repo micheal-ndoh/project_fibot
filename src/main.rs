@@ -18,10 +18,11 @@ async fn main() -> Result<(), anyhow::Error> {
     let owner = parts[0];
     let repo = parts[1];
 
-    let pr_number: u32 = env::var("GITHUB_REF")
-        .ok()
-        .and_then(|ref_value| ref_value.split('/').nth(2)?.parse().ok())
-        .context("Failed to parse PR number")?;
+    let pr_number: u32 = env::var("PR_NUMBER")
+    .context("PR_NUMBER environment variable is not set")?
+    .parse()
+    .context("Failed to parse PR number")?;
+
 
     println!("GitHub PR details: owner={}, repo={}, PR#={}", owner, repo, pr_number);
 
