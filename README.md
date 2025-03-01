@@ -41,3 +41,12 @@
 
 - A comprehensive README with setup instructions, parameter configurations, and code comments; plus any necessary code refinements.
 - A polished, documented, and fully working GitHub Action that is ready for public use.
+
+---
+
+## Usage
+
+1. The workflow runs on pull request so you will have to forked the repository and create a new branch then make some changes by adding numbers or a sentence containing numbers which will be extracted and the fibonacci frequency will be display on the comment section of the pull request
+   
+
+   * Special Thanks all my Tutor [MARC JAZZ](https://github.com/Marcjazz) for briefing us on want the project is expect to do so we don't succeed with a wrong task completed.
