@@ -46,10 +46,4 @@ jobs:
           echo "Job status: ${{ job.status }}"
           echo "PR Number: ${{ env.pr_number }}"
 
-      - name: Grant Public Access to Comments
-        run: |
-          gh api -X PUT \
-            -H "Accept: application/vnd.github.v3+json" \
-            repos/${{ github.repository }}/actions/permissions/workflow -f enabled=true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
