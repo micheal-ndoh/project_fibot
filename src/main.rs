@@ -41,7 +41,7 @@ async fn main() -> Result<(), anyhow::Error> {
     if enable_fib {
         let fib_results: Vec<u32> = numbers
             .iter()
-            .map(|&n| fibonacci(n, max_threshold))
+            .map(|&n| fibonacci(n))
             .collect();
 
         let message = format!(
