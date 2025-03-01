@@ -36,7 +36,7 @@ jobs:
         uses: ./
         with:
           enable_fib: true
-          max_threshold: '1000000'
+          max_threshold: '100'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ env.pr_number }}
@@ -46,9 +46,3 @@ jobs:
         run: |
           echo "Job status: ${{ job.status }}"
           echo "PR Number: ${{ env.pr_number }}"
-
-
-         #  # to fix 
-          # 1. max value to be the n value
-          # 2. fix workflow on push error
-          # 3. 
