@@ -11,7 +11,7 @@ pub fn fibonacci(n: u32, max_value: u32) -> u32 {
     while let Some(&_last) = fib_sequence.last() {
         let next = fib_sequence[fib_sequence.len() - 1] + fib_sequence[fib_sequence.len() - 2];
         if next > max_value {
-            continue;
+            break;
         }
         fib_sequence.push(next);
     }
