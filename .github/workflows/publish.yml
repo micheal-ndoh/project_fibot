@@ -1,9 +1,6 @@
 name: "Run FibBot Action"
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     types: [opened, edited, synchronize]
     branches:
@@ -18,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Debug Event Context
         run: echo "${{ toJson(github.event) }}"
@@ -49,3 +46,9 @@ jobs:
         run: |
           echo "Job status: ${{ job.status }}"
           echo "PR Number: ${{ env.pr_number }}"
+
+
+         #  # to fix 
+          # 1. max value to be the n value
+          # 2. fix workflow on push error
+          # 3. 
