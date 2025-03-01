@@ -1,5 +1,5 @@
 FROM rust:latest
-
+3 2 6 56
 WORKDIR /app
 
 COPY Cargo.toml Cargo.toml ./
