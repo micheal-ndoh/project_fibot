@@ -1,30 +1,31 @@
 
 # `PROJECT FIBOT`
+
 **Description**
 
- A GitHub Action in Rust that scans pull request content for numbers, calculates their Fibonacci numbers, and posts a comment with the results. The action supports two parameters (e.g., a flag to enable Fibonacci calculation and a threshold limit).
+An action in GitHub written in Rust that scans the text of the pull request for numbers, calculates its Fibonacci number, and proceeds to post a comment with the results. The action has two parameters(e.g., a flag to enable Fibonacci calculation and a threshold limit).
 
 ## **Objectives / Milestiones / Key points**
 
 > Here a the objectives and milestones that are covered in this projects
 
-### Step 1: Printing and confirming from logs
+### Step 1. Printing and confirming from logs
 
-- A Rust program that prints "Hello, world!" when executed.
-  - A GitHub workflow that run the "Hello, world!" program and output in the action logs.
-  - A minimal working GitHub Action written in Rust that is successfully running on GitHub.
+- A Rust program that prints “Hello, world!” when executed.
+
+  - A GitHub workflow that runs the “Hello, world!” program and outputs in the action logs.
+
+  - A minimum working GitHub Action written in Rust that is running on GitHub correctly.
 
 ### Step 2: Workflows
 
-- A action.yml workflow file that accepts two parameters `enable_fib` and `max_threshold` and also implements input parsing in the rust code.
-  - A demonstration (via logs or test cases) that the parameters are correctly used and validated
-  - A action that correctly recieves and processes inputs from the Github workflow
+- An action.yml workflow file that implements input parsing both on the rust side and on the action side and accepts parameters `enable_fib` and `max_threshold`.
 
 ### Step 3: Fibonacci function
 
-- A function that parses a sample string (from the pull request content) and extracts numerical values
-- A fibonacci function in rust with tests covering edge cases and efficiency
-- Should have core logic of both number extraction and fibonacci calculation withh test cases that confirms their functionalities
+- A rust basic level function with sample edge cases to test invoke the fibonacci function.
+
+- Will have the main parts of extracting numbers and calling the fibonacci function embedded within the core logic.
 
 ### Step 4: Github API
 
@@ -46,6 +47,29 @@
 ## Usage
 
 1. The workflow runs on pull request so you will have to forked the repository and create a new branch then make some changes by adding numbers or a sentence containing numbers which will be extracted and the fibonacci frequency will be display on the comment section of the pull request
-   
 
-   * Special Thanks all my Tutor [MARC JAZZ](https://github.com/Marcjazz) for briefing us on want the project is expect to do so we don't succeed with a wrong task completed.
+2. Inputs
+   To use this action you should forked the repository and edit the fibonacci `.github/workflows/fibbot.yml` and the two parameters the `enable_fib` which enables the fibonacci calculation and the `max_threshold` which is the maximum number the fibonacci action can/should perform.
+
+| Input Name      | Description                                       | Default Value |
+|---------------|----------------------------------------------------|-----------|
+| `enable_fib`  | Enables Fibonacci calculation (`true` or `false`). | `true`    |
+| `max_threshold` | Maximum Fibonacci number that can be computed.    | `100`   |
+
+### 3. How It Works
+
+1. The action scans the PR for added or modified file content.
+2. It extracts all numerical values from the PR content.
+3. It computes the Fibonacci value for each number up to the `max_threshold`.
+4. It posts a comment on the PR with the extracted numbers and their Fibonacci values.
+
+### 4. Example Comment Output
+
+When a PR contains numbers, FibBot will post a comment like:
+
+```
+Extracted numbers: [5, 8, 12]
+Fibonacci calculation results: [5, 21, 144]
+```
+
+- Special Thanks all my Tutor [MARC JAZZ](https://github.com/Marcjazz) for briefing us on want the project is expect to do so we don't succeed with a wrong task completed.
