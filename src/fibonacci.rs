@@ -1,20 +1,16 @@
-pub fn fibonacci(n: u32, max_value: u32) -> u32 {
+pub fn fibonacci(n: u32) -> u128 {
     if n == 0 {
         return 0;
-    }
-
-    if n == 1 {
+    } else if n == 1 {
         return 1;
     }
 
-    let mut fib_sequence = vec![0, 1];
-    while let Some(&_last) = fib_sequence.last() {
-        let next = fib_sequence[fib_sequence.len() - 1] + fib_sequence[fib_sequence.len() - 2];
-        if next > max_value {
-            break;
-        }
-        fib_sequence.push(next);
+    let mut a = 0;
+    let mut b = 1;
+    for _ in 2..=n {
+        let temp = a + b;
+        a = b;
+        b = temp;
     }
-    
-    *fib_sequence.get(n as usize).unwrap_or(&0) 
+    b
 }

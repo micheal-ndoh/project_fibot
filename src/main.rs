@@ -1,4 +1,5 @@
 use anyhow::{Result, Context};
+use serde::de::value;
 use std::env;
 use extract::{extract_numbers_from_pr, fetch_pr_content};
 use fibonacci::fibonacci;
@@ -40,9 +41,9 @@ async fn main() -> Result<(), anyhow::Error> {
     println!("Extracted numbers from PR files: {:?}", numbers);
 
     if enable_fib {
-        let fib_results: Vec<u32> = numbers
+        let fib_results: Vec<u128> = numbers
             .iter()
-            .map(|&n| fibonacci(n, max_threshold))
+            .map(|&n| fibonacci(n))
             .collect();
 
         let message = format!(
