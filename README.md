@@ -2,8 +2,8 @@
 # `PROJECT FIBOT`
 
 **Description4 2 6 6**
-
-34 6 67 
+gc
+34 6 67 89 32 
 
 An action in GitHub written in Rust that scans the text of the pull request for numbers, calculates its Fibonacci number, and proceeds to post a comment with the results. The action has two parameters(e.g., a flag to enable Fibonacci calculation and a threshold limit).
 
